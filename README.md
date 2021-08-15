@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+---> MEMORIES APP WHERE YOU CAN SHARE YOUR BEUTIFULL MEMORIES AS A BLOG AND ALSO LIKE AND COMMENT POSTS WITH FULLY RESPONSIVE UI .
+![memories3](https://user-images.githubusercontent.com/71437463/129493472-235f2ce0-c30f-434b-95c3-9228a95f9fea.png)
+![memoriessignin](https://user-images.githubusercontent.com/71437463/129493485-b76e2bf1-d226-4b3f-868b-8b38e887c851.png)
+![memoriessignup](https://user-images.githubusercontent.com/71437463/129493497-efb5024d-1b26-4d45-a217-58a6de38e8f6.png)
+![manali2](https://user-images.githubusercontent.com/71437463/129493512-a2e253ee-d0b0-4693-983a-aaa3f27a5837.png)
+![memories1](https://user-images.githubusercontent.com/71437463/129493524-b6cd17dc-a208-4d3b-9699-27039561edda.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
