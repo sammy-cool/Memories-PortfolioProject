@@ -8,6 +8,8 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  COMMENT,
+  FETCH_BY_CREATOR,
 } from "../../constants/actionTypes";
 import * as api from "../../api/index";
 
@@ -34,6 +36,20 @@ export const getPosts = (page) => async (dispatch) => {
       type: FETCH_ALL,
       payload: { data, currentPage, numberOfPages },
     });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsByCreator = (name) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const {
+      data: { data },
+    } = await api.fetchPostsByCreator(name);
+
+    dispatch({ type: FETCH_BY_CREATOR, payload: { data } });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
@@ -70,7 +86,7 @@ export const createPost = (post, history) => async (dispatch) => {
 export const updatePost = (id, post) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
-
+    console.log(data);
     dispatch({ type: UPDATE, payload: data });
   } catch (error) {
     console.log(error);
@@ -84,6 +100,18 @@ export const likePost = (id) => async (dispatch) => {
     const { data } = await api.likePost(id, user?.token);
 
     dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const { data } = await api.comment(value, id);
+
+    dispatch({ type: COMMENT, payload: data });
+
+    return data.comments;
   } catch (error) {
     console.log(error);
   }

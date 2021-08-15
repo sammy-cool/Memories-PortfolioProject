@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Avatar,
   Button,
@@ -7,15 +8,15 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 
-import useStyles from "./styles";
-import Input from "./Input";
 import Icon from "./icon";
 import { signin, signup } from "../../redux/actions/authActions";
+import { AUTH } from "../../constants/actionTypes";
+import useStyles from "./styles";
+import Input from "./Input";
 
 const initialState = {
   firstName: "",
@@ -25,13 +26,21 @@ const initialState = {
   confirmPassword: "",
 };
 
-const Auth = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const SignUp = () => {
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
+
+  const switchMode = () => {
+    setForm(initialState);
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,23 +52,12 @@ const Auth = () => {
     }
   };
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleShowPassword = () => setShowPassword(!showPassword);
-
-  const switchMode = () => {
-    setForm(initialState);
-    setIsSignup((prevIsSignup) => !prevIsSignup);
-    setShowPassword(false);
-  };
-
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } });
 
       history.push("/");
     } catch (error) {
@@ -68,11 +66,14 @@ const Auth = () => {
   };
 
   const googleError = () =>
-    alert("Google Sign In was unsuccessful. Try again later");
+    console.log("Google Sign In was unsuccessful. Try again later");
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper className={classes.paper} elevation={3}>
+      <Paper className={classes.paper} elevation={6}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -163,4 +164,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default SignUp;

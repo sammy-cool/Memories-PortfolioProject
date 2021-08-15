@@ -59,16 +59,13 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
-  const handleAddChip = (tag) => {
-    setPostData({ ...postData, tags: [...postData.tags, tag] });
-  };
+  // const handleAddChip = (tag) => {
+  //   setPostData({ ...postData, tags: [...postData.tags, tag] });
+  // };
 
-  const handleDeleteChip = (chipToDelete) => {
-    setPostData({
-      ...postData,
-      tags: postData.tags.filter((tag) => tag !== chipToDelete),
-    });
-  };
+  // const handleDeleteChip = (chipToDelete) => {
+  //   setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  // };
 
   return (
     <Paper className={classes.paper} elevation={6}>
@@ -101,17 +98,28 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, message: e.target.value })
           }
         />
-        <div style={{ padding: "5px 0", width: "94%" }}>
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Tags"
+          fullWidth
+          multiline
+          rows={4}
+          value={postData.tags}
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+        />
+        {/* <div style={{ padding: '5px 0', width: '94%' }}>
           <ChipInput
             name="tags"
             variant="outlined"
             label="Tags"
             fullWidth
             value={postData.tags}
-            onAdd={(chip) => handleAddChip(chip)}
-            onDelete={(chip) => handleDeleteChip(chip)}
+            // onAdd={(chip) => handleAddChip(chip)}
+            // onDelete={(chip) => handleDeleteChip(chip)}
+            onChange={(e) => setPostData({ ...postData, tags: e.target.value})}
           />
-        </div>
+        </div> */}
         <div className={classes.fileInput}>
           <FileBase
             type="file"
